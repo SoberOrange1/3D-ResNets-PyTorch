@@ -1,9 +1,10 @@
 import argparse
 from pathlib import Path
 
-
+# 用parser来定义所需参数
 def parse_opts():
     parser = argparse.ArgumentParser()
+    #定义文件路径
     parser.add_argument('--root_path',
                         default=None,
                         type=Path,
@@ -20,6 +21,7 @@ def parse_opts():
                         default=None,
                         type=Path,
                         help='Result directory path')
+    #定义数据集以及数据参数
     parser.add_argument(
         '--dataset',
         default='kinetics',
@@ -31,7 +33,7 @@ def parse_opts():
         type=int,
         help=
         'Number of classes (activitynet: 200, kinetics: 400 or 600, ucf101: 101, hmdb51: 51)'
-    )
+    ) #类别
     parser.add_argument('--n_pretrain_classes',
                         default=0,
                         type=int,
@@ -40,7 +42,8 @@ def parse_opts():
     parser.add_argument('--pretrain_path',
                         default=None,
                         type=Path,
-                        help='Pretrained model path (.pth).')
+                        help='Pretrained model path (.pth).') #预训练模型
+    #这是fine tuning 开始的指定层
     parser.add_argument(
         '--ft_begin_module',
         default='',
@@ -48,6 +51,7 @@ def parse_opts():
         help=('Module name of beginning of fine-tuning'
               '(conv1, layer1, fc, denseblock1, classifier, ...).'
               'The default means all layers are fine-tuned.'))
+    #数据size
     parser.add_argument('--sample_size',
                         default=112,
                         type=int,
@@ -56,11 +60,13 @@ def parse_opts():
                         default=16,
                         type=int,
                         help='Temporal duration of inputs')
+    #要不要subsample输入
     parser.add_argument(
         '--sample_t_stride',
         default=1,
         type=int,
         help='If larger than 1, input frames are subsampled with the stride.')
+    #spatial cropping method(get_train_utils)
     parser.add_argument(
         '--train_crop',
         default='random',
@@ -72,11 +78,11 @@ def parse_opts():
     parser.add_argument('--train_crop_min_scale',
                         default=0.25,
                         type=float,
-                        help='Min scale for random cropping in training')
+                        help='Min scale for random cropping in training') #裁剪的最小占比
     parser.add_argument('--train_crop_min_ratio',
                         default=0.75,
                         type=float,
-                        help='Min aspect ratio for random cropping in training')
+                        help='Min aspect ratio for random cropping in training') #裁剪的长宽比
     parser.add_argument('--no_hflip',
                         action='store_true',
                         help='If true holizontal flipping is not performed.')
