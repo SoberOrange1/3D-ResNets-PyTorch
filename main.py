@@ -122,9 +122,9 @@ def get_normalize_method(mean, std, no_mean_norm, no_std_norm):
             return Normalize(mean, std)
 
 
-def get_train_utils(opt, model_parameters):
+def get_train_utils(opt, model_parameters): #这里是对视频预处理 主要是spatial&temporal transform
     assert opt.train_crop in ['random', 'corner', 'center']
-    spatial_transform = []
+    spatial_transform = [] #建立函数list以储存这里的所有函数变换，通过opt导入参数
     if opt.train_crop == 'random':
         spatial_transform.append(
             RandomResizedCrop(
