@@ -85,7 +85,7 @@ def parse_opts():
                         help='Min aspect ratio for random cropping in training') #裁剪的长宽比
     parser.add_argument('--no_hflip',
                         action='store_true',
-                        help='If true holizontal flipping is not performed.')
+                        help='If true holizontal flipping is not performed.') #水平翻转
     parser.add_argument('--colorjitter',
                         action='store_true',
                         help='If true colorjitter is performed.')
