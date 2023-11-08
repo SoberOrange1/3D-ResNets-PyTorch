@@ -145,8 +145,8 @@ def get_train_utils(opt, model_parameters): #这里是对视频预处理 主要�
         spatial_transform.append(RandomHorizontalFlip())
     if opt.colorjitter:
         spatial_transform.append(ColorJitter())
-    spatial_transform.append(ToTensor())
-    if opt.input_type == 'flow':
+    spatial_transform.append(ToTensor()) #转换为tensor
+    if opt.input_type == 'flow': #不需要，这是用于光流计算
         spatial_transform.append(PickFirstChannels(n=2))
     spatial_transform.append(ScaleValue(opt.value_scale))
     spatial_transform.append(normalize)
@@ -155,7 +155,7 @@ def get_train_utils(opt, model_parameters): #这里是对视频预处理 主要�
     assert opt.train_t_crop in ['random', 'center']
     temporal_transform = []
     if opt.sample_t_stride > 1:
-        temporal_transform.append(TemporalSubsampling(opt.sample_t_stride))
+        temporal_transform.append(TemporalSubsampling(opt.sample_t_stride)) # 类似与抽出特定的帧
     if opt.train_t_crop == 'random':
         temporal_transform.append(TemporalRandomCrop(opt.sample_duration))
     elif opt.train_t_crop == 'center':
