@@ -55,12 +55,12 @@ def parse_opts():
     parser.add_argument('--sample_size',
                         default=112,
                         type=int,
-                        help='Height and width of inputs')
+                        help='Height and width of inputs') #size是整数，较小边缩放到指定的大小，而较大边则会按原比例缩放
     parser.add_argument('--sample_duration',
                         default=16,
                         type=int,
                         help='Temporal duration of inputs')
-    #要不要subsample输入
+    #要不要subsample输入（在时域上）
     parser.add_argument(
         '--sample_t_stride',
         default=1,
@@ -88,13 +88,15 @@ def parse_opts():
                         help='If true holizontal flipping is not performed.') #水平翻转
     parser.add_argument('--colorjitter',
                         action='store_true',
-                        help='If true colorjitter is performed.')
+                        help='If true colorjitter is performed.') #改变亮度对比度，光照条件
+    #temporal cropping
     parser.add_argument('--train_t_crop',
                         default='random',
                         type=str,
                         help=('Temporal cropping method in training. '
                               'random is uniform. '
                               '(random | center)'))
+    #学习率调整
     parser.add_argument('--learning_rate',
                         default=0.1,
                         type=float,
